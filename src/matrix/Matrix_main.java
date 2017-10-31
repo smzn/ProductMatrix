@@ -20,12 +20,17 @@ public class Matrix_main {
 		//double b[][] = { { -5, 8, 11 }, { 3, 9, 21 }, { 4, 0, 8 } };
 		
 		//３行２列・２行３列
-		double a[][] = { { 0, 1 }, { 2, 0 }, { 0, 3 } };
-		double b[][] = { { 1, -1, 2 }, { 3, 0, 4 } };
+		//double a[][] = { { 0, 1 }, { 2, 0 }, { 0, 3 } };
+		//double b[][] = { { 1, -1, 2 }, { 3, 0, 4 } };
+		
+		//4行4列・4行4列
+		double a[][] = { { 3, 1, 1, 2 }, { 5, 1, 3, 4 }, { 2, 0, 1, 0 }, { 1, 3, 2, 1} };
+		double b[][] = { { 4, 0, 1, 8 }, { 1, 2, 0, 4 }, { 2, 1, 6, 0 }, { 0, 4, 1, 2} };
 		
 		Matrix_lib mlib = new Matrix_lib(a, b);
 		System.out.println("Transpose = " + Arrays.deepToString(mlib.getTranspose(a)));
 		System.out.println("Product = " + Arrays.deepToString(mlib.getProduct()));
+		System.out.println("Cofactor = " + mlib.getCofactor(a));
 	}
 
 }
