@@ -4,18 +4,13 @@ import java.util.Arrays;
 
 public class Matrix_lib {
 
-	private double a[][], b[][], cofactor = 0;
-
-	public Matrix_lib(double[][] a, double[][] b) {
-		this.a = a;
-		this.b = b;
-	}
+	private double cofactor = 0;
 	
-	public double[][] getProduct() {
-		double answer[][] = new double[this.a.length][this.b[0].length];
+	public double[][] getProduct(double a[][], double b[][]) {
+		double answer[][] = new double[a.length][b[0].length];
 		double t[][] = this.getTranspose(b);
-		for(int i = 0; i < this.a.length; i++) {
-			for(int j = 0; j < this.b[0].length; j++) {
+		for(int i = 0; i < a.length; i++) {
+			for(int j = 0; j < b[0].length; j++) {
 				answer[i][j] = this.getInnerProduct(a[i], t[j]);
 			}
 		}
@@ -49,7 +44,7 @@ public class Matrix_lib {
 		return t;
 	}
 	
-	//n次正方行列
+	//n次正方行列の行列式(余因子展開利用)
 	public double getCofactor(double [][]a) {
 		double cofactor = 0;
 		if(a.length == 2) {
@@ -72,11 +67,38 @@ public class Matrix_lib {
 					q = 0;
 				}
 				//デバッグ用表示
-				System.out.println("tmp["+i+"] = " + Arrays.deepToString(tmp));
+				//System.out.println("tmp["+i+"] = " + Arrays.deepToString(tmp));
 				cofactor += a[i][index] * Math.pow(-1, ( i + 1 ) + (index + 1 )) * this.getCofactor(tmp);
 			}
 		}
 		return cofactor;
+	}
+	
+	//n次正方行列の逆行列
+	public double [][] getInverse(double[][] a){
+		double answer [][] = new double [a.length][a[0].length];
+		double tmp[][] = new double[a.length -1][a[0].length -1];
+		//余因子行列作成
+		for(int i = 0; i < a.length; i++) {
+			for(int j = 0; j < a[0].length; j++) {
+				int p = 0, q = 0;
+				for(int k = 0; k < a.length; k++) {
+					if( i == k ) continue;
+					for(int s = 0; s < a[0].length; s++) {
+						if( j == s ) continue;
+						tmp[p][q] = a[k][s];
+						q++;
+					}
+					p++;
+					q = 0;
+				}
+				//System.out.println("tmp["+i+"]["+j+"] = " + Arrays.deepToString(tmp));
+				answer[i][j] = Math.pow(-1, i + 1 + j + 1) * this.getCofactor(tmp);
+			}
+		}
+		//転置する
+		answer = this.getTranspose(answer);
+		return answer;
 	}
 	
 }

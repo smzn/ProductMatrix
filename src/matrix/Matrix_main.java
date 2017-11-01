@@ -27,10 +27,14 @@ public class Matrix_main {
 		double a[][] = { { 3, 1, 1, 2 }, { 5, 1, 3, 4 }, { 2, 0, 1, 0 }, { 1, 3, 2, 1} };
 		double b[][] = { { 4, 0, 1, 8 }, { 1, 2, 0, 4 }, { 2, 1, 6, 0 }, { 0, 4, 1, 2} };
 		
-		Matrix_lib mlib = new Matrix_lib(a, b);
+		//double a[][] = { { 1, -2, 1 }, { -1, 1, -1 }, { 2, -1, -2 } };
+		//double b[][] = { { -4, 2, 2 } };
+		
+		Matrix_lib mlib = new Matrix_lib();
 		System.out.println("Transpose = " + Arrays.deepToString(mlib.getTranspose(a)));
-		System.out.println("Product = " + Arrays.deepToString(mlib.getProduct()));
+		System.out.println("Product = " + Arrays.deepToString(mlib.getProduct(a,b)));
 		System.out.println("Cofactor = " + mlib.getCofactor(a));
+		System.out.println("Inverse = 1 / "+mlib.getCofactor(a)+" "+ Arrays.deepToString(mlib.getInverse(a)));
 	}
 
 }
