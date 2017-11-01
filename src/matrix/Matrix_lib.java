@@ -78,6 +78,7 @@ public class Matrix_lib {
 	public double [][] getInverse(double[][] a){
 		double answer [][] = new double [a.length][a[0].length];
 		double tmp[][] = new double[a.length -1][a[0].length -1];
+		double determinant = this.getCofactor(a);
 		//余因子行列作成
 		for(int i = 0; i < a.length; i++) {
 			for(int j = 0; j < a[0].length; j++) {
@@ -93,11 +94,20 @@ public class Matrix_lib {
 					q = 0;
 				}
 				//System.out.println("tmp["+i+"]["+j+"] = " + Arrays.deepToString(tmp));
-				answer[i][j] = Math.pow(-1, i + 1 + j + 1) * this.getCofactor(tmp);
+				answer[i][j] = Math.pow(-1, i + 1 + j + 1) * this.getCofactor(tmp) / determinant;
 			}
 		}
 		//転置する
 		answer = this.getTranspose(answer);
+		return answer;
+	}
+	
+	public double[] getSolution(double [][]a, double []b) {
+		double answer[] = new double[b.length];
+		double tmp[][] = this.getInverse(a);
+		for(int i = 0; i < a.length; i++) {
+			answer[i] = this.getInnerProduct(tmp[i], b);
+		}
 		return answer;
 	}
 	
